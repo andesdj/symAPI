@@ -85,7 +85,7 @@ EOT
         $generator = $this->getGenerator();
 
         $output->writeln(sprintf(
-            '> Generating a sample bundle skeleton into <info>%s</info> <comment>OK!</comment>',
+            '> Generating a sample bundle skeleton into <info>%s</info>',
             $this->makePathRelative($bundle->getTargetDirectory())
         ));
         $generator->generateBundle($bundle);
@@ -151,7 +151,7 @@ EOT
                 'See http://symfony.com/doc/current/cookbook/bundles/best_practices.html#bundle-name for more',
                 'details on bundle naming conventions.',
                 '',
-                'Use <comment>/</comment> instead of <comment>\\ </comment> for the namespace delimiter to avoid any problem.',
+                'Use <comment>/</comment> instead of <comment>\\ </comment>for the namespace delimiter to avoid any problems.',
                 '',
             ));
 
@@ -262,7 +262,7 @@ EOT
 
     protected function checkAutoloader(OutputInterface $output, Bundle $bundle)
     {
-        $output->write('> Checking that the bundle is autoloaded: ');
+        $output->writeln('> Checking that the bundle is autoloaded');
         if (!class_exists($bundle->getBundleClassName())) {
             return array(
                 '- Edit the <comment>composer.json</comment> file and register the bundle',
@@ -276,8 +276,8 @@ EOT
     {
         $kernelManipulator = new KernelManipulator($kernel);
 
-        $output->write(sprintf(
-            '> Enabling the bundle inside <info>%s</info>: ',
+        $output->writeln(sprintf(
+            '> Enabling the bundle inside <info>%s</info>',
             $this->makePathRelative($kernelManipulator->getFilename())
         ));
 
@@ -306,8 +306,8 @@ EOT
     protected function updateRouting(OutputInterface $output, Bundle $bundle)
     {
         $targetRoutingPath = $this->getContainer()->getParameter('kernel.root_dir').'/config/routing.yml';
-        $output->write(sprintf(
-            '> Importing the bundle\'s routes from the <info>%s</info> file: ',
+        $output->writeln(sprintf(
+            '> Importing the bundle\'s routes from the <info>%s</info> file',
             $this->makePathRelative($targetRoutingPath)
         ));
         $routing = new RoutingManipulator($targetRoutingPath);
@@ -340,8 +340,8 @@ EOT
     protected function updateConfiguration(OutputInterface $output, Bundle $bundle)
     {
         $targetConfigurationPath = $this->getContainer()->getParameter('kernel.root_dir').'/config/config.yml';
-        $output->write(sprintf(
-            '> Importing the bundle\'s %s from the <info>%s</info> file: ',
+        $output->writeln(sprintf(
+            '> Importing the bundle\'s %s from the <info>%s</info> file',
             $bundle->getServicesConfigurationFilename(),
             $this->makePathRelative($targetConfigurationPath)
         ));
@@ -350,7 +350,7 @@ EOT
             $manipulator->addResource($bundle);
         } catch (\RuntimeException $e) {
             return array(
-                '- Import the bundle\'s %s resource in the app\'s main configuration file:',
+                sprintf('- Import the bundle\'s "%s" resource in the app\'s main configuration file:', $bundle->getServicesConfigurationFilename()),
                 '',
                 $manipulator->getImportCode($bundle),
                 '',
@@ -386,19 +386,30 @@ EOT
         }
         $format = Validators::validateFormat($input->getOption('format'));
 
+        // an assumption that the kernel root dir is in a directory (like app/)
+        $projectRootDirectory = $this->getContainer()->getParameter('kernel.root_dir').'/..';
+
         if (!$this->getContainer()->get('filesystem')->isAbsolutePath($dir)) {
-            $dir = getcwd().'/'.$dir;
+            $dir = $projectRootDirectory.'/'.$dir;
         }
         // add trailing / if necessary
         $dir = '/' === substr($dir, -1, 1) ? $dir : $dir.'/';
 
-        return new Bundle(
+        $bundle = new Bundle(
             $namespace,
             $bundleName,
             $dir,
             $format,
             $shared
         );
+
+        // not shared - put the tests in the root
+        if (!$shared) {
+            $testsDir = $projectRootDirectory.'/tests/'.$bundleName;
+            $bundle->setTestsDirectory($testsDir);
+        }
+
+        return $bundle;
     }
 
     protected function createGenerator()
