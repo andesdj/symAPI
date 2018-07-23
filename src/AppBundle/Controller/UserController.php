@@ -111,9 +111,9 @@ class UserController extends Controller {
                     $user->setImage($image);
                     $em = $this->getDoctrine()->getManager();
                     $isset_user = $em->getRepository("BackendBundle:User")->findBy(
-                        array(
-                          "email" => $email
-                      ));
+                            array(
+                                "email" => $email
+                    ));
                     if (count($isset_user) == 0 || $identity->email == $email) {
                         $em->persist($user);
                         $em->flush();
@@ -139,11 +139,54 @@ class UserController extends Controller {
             );
         }
     }
-}
 
-/* $data = array (
-                "status"=>"error",
-                "code"=>400,
-                "msg"=>"JSON data is invalid"
+    public function uploadImageAction(Request $request) {
+        $helpers = $this->get("app.helpers");
+        $hash = $request->get("authorization", null);
+        $authCheck = $helpers->authCheck($hash);
+        //Validar token inicio sesion OK
+        if ($authCheck) {
+            $identity = $helpers->authCheck($hash, true);
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository("BackendBundle:User")->findOneBy(array(
+                "id" => $identity->sub
+            ));
+            //Recoger Fichero Imagen por POST y cargarlo (upload.
+            $file = $request->files->get("image");
+            if (!empty($file) && $file != null) {
+                $ext = $file->guessExtension();
+                if ($ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif" || $ext == "bmp") {
+                    $filename = time() . "." . $ext;
+                    $file->move("uploads/users", $filename);
+                    $user->setImage($filename);
+                    $em->persist($user);
+                    $em->flush();
+                    $data = array(
+                        "status" => "sucess",
+                        "code" => 200,
+                        "msg" => " File loaded OK"
+                    );
+                } else {
+                    $data = array(
+                        "status" => "error",
+                        "code" => 400,
+                        "msg" => "File Extension not valid!"
+                    );
+                }
+            } else {
+                $data = array(
+                    "status" => "error",
+                    "code" => 400,
+                    "msg" => "Image not loaded!"
                 );
-                */
+            }
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "msg" => "Authorization Failed!"
+            );
+        }
+        return $helpers->json($data);
+    }
+}

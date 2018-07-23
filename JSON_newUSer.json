@@ -1,2 +1,13 @@
 {"email":"user@gmail.com", "password":"user","name":"user","surname":"user surname"}
 {"email":"user3@gmail.com", "password":"user2","name":"user2","surname":"user surname2"}
+
+
+login
+URL: http://localhost/SymAPI/web/app_dev.php/login
+
+key: json
+value:
+{"email":"admin@gmail.com","password":"admin","gethash":"true"}
+
+Token:
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibmFtZSI6ImFkbWluIiwic3VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiI4YzY5NzZlNWI1NDEwNDE1YmRlOTA4YmQ0ZGVlMTVkZmIxNjdhOWM4NzNmYzRiYjhhODFmNmYyYWI0NDhhOTE4IiwiaW1hZ2UiOm51bGwsImlhdCI6MTUzMjM4ODgwOSwiZXhwIjoxNTMyOTkzNjA5fQ.wHyAKhRdUDLIUjZfydsqeVAgbbXjkCvmDgrWuMSh7vI
