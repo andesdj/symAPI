@@ -1,19 +1,2 @@
 {"email":"user@gmail.com", "password":"user","name":"user","surname":"user surname"}
-{"email":"usertwo@gmail.com", "password":"user2","name":"user2","surname":"user surname2"}
-
-
-QuickLogin Course Data
-{"email":"admin@gmail.com","password":"admin",""gethash":"true""}
-Token 21 Jul
-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibmFtZSI6ImFkbWluIiwic3VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiI4YzY5NzZlNWI1NDEwNDE1YmRlOTA4YmQ0ZGVlMTVkZmIxNjdhOWM4NzNmYzRiYjhhODFmNmYyYWI0NDhhOTE4IiwiaW1hZ2UiOiIxIiwiaWF0IjoxNTMyMzA0MzY5LCJleHAiOjE1MzI5MDkxNjl9.ne36GwchSuyG0sDaHbQeH7dXlTNZbGFKP4XydflWU88
-
-TO Edit use this 
-Key:
-Authorization
-Value:
-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibmFtZSI6ImFkbWluIiwic3VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiI4YzY5NzZlNWI1NDEwNDE1YmRlOTA4YmQ0ZGVlMTVkZmIxNjdhOWM4NzNmYzRiYjhhODFmNmYyYWI0NDhhOTE4IiwiaW1hZ2UiOiIxIiwiaWF0IjoxNTMyMzA0MzY5LCJleHAiOjE1MzI5MDkxNjl9.ne36GwchSuyG0sDaHbQeH7dXlTNZbGFKP4XydflWU88
-
-Key:
-JSON
-Value:
-{"email":"admin@gmail.com","password":"admin","name":"Admin21","surname":"Julio de 2018"}
+{"email":"user3@gmail.com", "password":"user2","name":"user2","surname":"user surname2"}
