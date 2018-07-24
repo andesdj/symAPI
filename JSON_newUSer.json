@@ -16,7 +16,12 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29
 
 Video New json
 
-{
-	"title": "Video 1",
-	"description":"description Video"
+{	"title": "Video  ",
+	"description":"description Video "
+}
+
+Video Edit json
+
+{	"title": "Video 10 EDITED",
+	"description":"description Video EDITED"
 }
