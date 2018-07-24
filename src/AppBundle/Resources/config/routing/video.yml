@@ -1,0 +1,8 @@
+video_pruebas:
+    path: /pruebas
+    defaults: {_controller: "AppBundle:Video:pruebas"}
+    methods: GET
+video_new:
+    path: /new
+    defaults: {_controller: "AppBundle:Video:new"}
+    methods: POST

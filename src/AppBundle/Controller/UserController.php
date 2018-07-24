@@ -145,7 +145,7 @@ class UserController extends Controller {
         $hash = $request->get("authorization", null);
         $authCheck = $helpers->authCheck($hash);
         //Validar token inicio sesion OK
-        if ($authCheck) {
+        if ($authCheck==true) {
             $identity = $helpers->authCheck($hash, true);
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository("BackendBundle:User")->findOneBy(array(
@@ -189,4 +189,5 @@ class UserController extends Controller {
         }
         return $helpers->json($data);
     }
+
 }
