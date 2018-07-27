@@ -11,3 +11,13 @@ video_edit:
     path: /edit/{id}
     defaults: {_controller: "AppBundle:Video:edit", id: null}
     methods: POST
+
+video_upload_image:
+    path: /upload_image/{id}
+    defaults: {_controller: "AppBundle:Video:upload", id: null}
+    methods: POST
+    
+video_upload_video:
+    path: /upload_video/{id}
+    defaults: {_controller: "AppBundle:Video:upload", id: null}
+    methods: POST    

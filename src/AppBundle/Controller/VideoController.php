@@ -91,8 +91,8 @@ class VideoController extends Controller {
         return $helpers->json($data);
     }
 
-    public function editAction(Request $request, $id=null) {
-        $video_id=$id;
+    public function editAction(Request $request, $id = null) {
+        $video_id = $id;
         $helpers = $this->get("app.helpers");
         $hash = $request->get("authorization", null);
         $authCheck = $helpers->authCheck($hash);
@@ -103,7 +103,7 @@ class VideoController extends Controller {
             if ($json != null) {
                 $params = json_decode($json);
 
-              //  $createdAt = new \Datetime('now');
+                //  $createdAt = new \Datetime('now');
                 $updatedAt = new \Datetime('now');
                 $imagen = null;
                 $videoPath = null;
@@ -162,6 +162,92 @@ class VideoController extends Controller {
                 "code" => 400,
                 "msg" => "Authorization Failed!"
             );
+        }
+
+        return $helpers->json($data);
+    }
+
+    public function uploadAction(Request $request, $id) {
+       
+        $video_id = $id;
+        $helpers = $this->get("app.helpers");
+        $hash = $request->get("authorization", null);
+        $authCheck = $helpers->authCheck($hash);
+        //Validar token inicio sesion OK
+        if ($authCheck == true) {
+            $identity = $helpers->authCheck($hash, true);
+            $video_id = $id;
+            $em = $this->getDoctrine()->getManager();
+            $video = $em->getRepository("BackendBundle:Video")->findOneBy(
+                    array(
+                        "id" => $video_id
+            ));
+             
+            if ($video_id != null && isset($identity->sub) && $identity->sub == $video->getUser()->getId()) {
+                $file = $request->files->get('image', null);
+                $file_video = $request->files->get('video', null);
+                $data = array(
+                    "status" => "error",
+                    "code" => 400,
+                    "msg" => "The File Selector is Empty"
+                );
+                if ($file != null && !empty($file)) {
+                    $ext = $file->guessExtension();
+                    if ($ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "bmp") {
+
+                        $file_name = time() . "." . $ext;
+                        $pathFile = "uploads/video_images/video_" . $video_id;
+                        $file->move($pathFile, $file_name);
+                        $video->setImage($file_name);
+                        $em->persist($video);
+                        $em->flush();
+                        $data = array(
+                            "status" => "success",
+                            "code" => 200,
+                            "msg" => "Image file was Uploaded !!!"
+                        );
+                    } else {
+                        $data = array(
+                            "status" => "error",
+                            "code" => 400,
+                            "msg" => "Image format is not Valid"
+                        );
+                    }
+                    
+                } else {
+                    if ($file_video != null && !empty($file_video)) {
+
+                        $ext = $file_video->guessExtension();
+                       
+                        if ($ext == "mp4" || $ext == "avi") {
+                            $file_name = time() . "." . $ext;
+                            $pathFile = "uploads/video_files/video_" . $video_id;
+                            $file_video->move($pathFile, $file_name);
+                            $video->setVideoPath($file_name);
+                            $em->persist($video);
+                            $em->flush();
+                            $data = array(
+                                "status" => "success",
+                                "code" => 200,
+                                "msg" => "Video file was Uploaded !!!"
+                            );
+                        } else {
+
+                            $data = array(
+                                "status" => "error",
+                                "code" => 400,
+                                "msg" => "Video format is not Valid"
+                            );
+                        }
+                    }
+                }
+            } else {
+                $data = array(
+                    "status" => "error",
+                    "code" => 400,
+                    "msg" => "Error: Must be de owner to edit this video"
+                );
+            }
         }
 
         return $helpers->json($data);
