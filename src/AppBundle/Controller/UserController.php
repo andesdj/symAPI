@@ -145,7 +145,7 @@ class UserController extends Controller {
         $hash = $request->get("authorization", null);
         $authCheck = $helpers->authCheck($hash);
         //Validar token inicio sesion OK
-        if ($authCheck==true) {
+        if ($authCheck == true) {
             $identity = $helpers->authCheck($hash, true);
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository("BackendBundle:User")->findOneBy(array(
@@ -162,7 +162,7 @@ class UserController extends Controller {
                     $em->persist($user);
                     $em->flush();
                     $data = array(
-                        "status" => "sucess",
+                        "status" => "success",
                         "code" => 200,
                         "msg" => " File loaded OK"
                     );
@@ -185,6 +185,42 @@ class UserController extends Controller {
                 "status" => "error",
                 "code" => 400,
                 "msg" => "Authorization Failed!"
+            );
+        }
+        return $helpers->json($data);
+    }
+
+    public function channelAction(Request $request, $id) {
+        $helpers = $this->get("app.helpers");
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("BackendBundle:User")->findOneBy(array(
+            "id" => $id
+        ));
+        $dql = "SELECT v FROM BackendBundle:Video v WHERE v.user= $id ORDER BY v.id DESC ";
+        $query = $em->createQuery($dql);
+        $page = $request->query->getInt("page", 1);
+        $paginator = $this->get("knp_paginator");
+        $items_per_page = 6;
+        $pagination = $paginator->paginate($query, $page, $items_per_page);
+        $total_items_count = $pagination->getTotalItemCount();
+        
+       
+        if ($user) {
+            $data = array(
+                "status" => "success",
+                "msg" => "Channel Found in DB",
+                "total_items_count" => $total_items_count,
+                "page_actual" => $page,
+                "items_per_page" => $items_per_page,
+                "total_pages" => ceil($total_items_count / $items_per_page),
+            );
+            $data ["data"]["videos"] = $pagination;
+            $data ["data"]["data_user"] = $user;
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "msg" => "User Channel Not Found!"
             );
         }
         return $helpers->json($data);

@@ -84,7 +84,7 @@ class VideoController extends Controller {
             $data = array(
                 "status" => "error",
                 "code" => 400,
-                "msg" => "Authorization Failed!"
+                "msg" => "Authentication Failed!"
             );
         }
 
@@ -160,7 +160,7 @@ class VideoController extends Controller {
             $data = array(
                 "status" => "error",
                 "code" => 400,
-                "msg" => "Authorization Failed!"
+                "msg" => "Authentication Failed!"
             );
         }
 
@@ -265,7 +265,7 @@ class VideoController extends Controller {
         $pagination = $paginator->paginate($query, $page, $items_per_page);
         $total_items_count = $pagination->getTotalItemCount();
         $data = array(
-            "status" => "sucess",
+            "status" => "success",
             "msg" => "videos list",
             "total_items_count" => $total_items_count,
             "page_actual" => $page,
@@ -287,7 +287,7 @@ class VideoController extends Controller {
         $videos = $query->getResult();
 
         $data = array(
-            "status" => "sucess",
+            "status" => "success",
             "msg" => "Lastest 5 Videos ",
             "data" => $videos
         );
@@ -306,16 +306,53 @@ class VideoController extends Controller {
         $video = $em->getRepository("BackendBundle:Video")->findOneBy(array(
             "id" => $id
         ));
-        
+
         if ($video) {
             $data = array(
-                "status" => "sucess",
-                "code"=>200,
+                "status" => "success",
+                "code" => 200,
                 "msg" => "Details from Video",
                 "data" => $video
             );
         }
 
+        return $helpers->json($data);
+    }
+    public function searchAction(Request $request, $search = null) {
+        $helpers = $this->get("app.helpers");
+        $em = $this->getDoctrine()->getManager();
+        $msg = "";
+        if ($search != null) {
+            $dql = "SELECT v FROM BackendBundle:Video v "
+                    . "WHERE v.title LIKE  :search "
+                    . "OR v.description LIKE :search "
+                    . " ORDER BY v.id DESC";
+           $query = $em->createQuery($dql)
+                   ->setParameter("search", "%$search%");
+
+            $msg = "Seach Function OK";
+        } else {
+            $dql = "SELECT v FROM BackendBundle:Video v ORDER BY v.id DESC";
+             $query = $em->createQuery($dql)
+                      ->setParameter("search", "%$search%");
+            $msg = "Null search ... get Latest 5 Videos";
+        }
+
+       
+        $page = $request->query->getInt("page", 1);
+        $paginator = $this->get("knp_paginator");
+        $items_per_page = 3;
+        $pagination = $paginator->paginate($query, $page, $items_per_page);
+        $total_items_count = $pagination->getTotalItemCount();
+        $data = array(
+            "status" => "success",
+            "msg" => $msg,
+            "total_items_count" => $total_items_count,
+            "page_actual" => $page,
+            "items_per_page" => $items_per_page,
+            "total_pages" => ceil($total_items_count / $items_per_page),
+            "data" => $pagination
+        );
         return $helpers->json($data);
     }
 
