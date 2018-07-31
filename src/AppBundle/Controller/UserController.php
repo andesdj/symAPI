@@ -29,6 +29,7 @@ class UserController extends Controller {
             $password = (isset($params->password)) ? $params->password : null;
             $emailCons = new Assert\Email();
             $emailCons->message = "Formato de email no valido";
+         //   var_dump($params);die();
             $validate_email = $this->get("validator")->validate($email, $emailCons);
             if ($email != null && count($validate_email) == 0 && $password != null && $name != null && $surname != null) {
                 $user = new User();
@@ -184,7 +185,7 @@ class UserController extends Controller {
             $data = array(
                 "status" => "error",
                 "code" => 400,
-                "msg" => "Authorization Failed!"
+                "msg" => "Authentication Failed!"
             );
         }
         return $helpers->json($data);

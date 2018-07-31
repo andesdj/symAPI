@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/SymAPI/src/AppBundle/Resources/config/routing/video.yml</file>
+            <file>file:/C:/xampp/htdocs/SymAPI/src/AppBundle/Resources/config/routing/comment.yml</file>
+            <file>file:/C:/xampp/htdocs/SymAPI/src/AppBundle/Controller/CommentController.php</file>
             <file>file:/C:/xampp/htdocs/SymAPI/src/AppBundle/Controller/UserController.php</file>
-            <file>file:/C:/xampp/htdocs/SymAPI/src/AppBundle/Controller/VideoController.php</file>
         </group>
     </open-files>
 </project-private>
