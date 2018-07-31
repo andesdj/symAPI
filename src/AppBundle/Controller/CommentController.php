@@ -84,14 +84,15 @@ class CommentController extends Controller {
             $identity = $helpers->authCheck($hash, true);
 
             $user_id = ($identity->sub != null) ? $identity->sub : null;
-          
+
             $em = $this->getDoctrine()->getManager();
             $comment = $em->getRepository("BackendBundle:Comment")->findOneBy(array(
                 "id" => $id
             ));
-            $co=$comment;
-              var_dump($co);die();
-              // var_dump($comment);die();
+            $co = $comment;
+            var_dump($co);
+            die();
+            // var_dump($comment);die();
             if (is_object($comment && $user_id = !null)) {
                 if (
                         isset($identity->sub) &&
@@ -115,7 +116,7 @@ class CommentController extends Controller {
                     );
                 }
             } else {
-              
+
                 $data = array(
                     "status" => "error",
                     "code" => 400,
@@ -129,8 +130,34 @@ class CommentController extends Controller {
                 "msg" => "Authentication Failed Failed!"
             );
         }
-             return $helpers->json($data);
+        return $helpers->json($data);
     }
 
+    public function listAction(Request $request, $id = null) {
+        $helpers = $this->get("app.helpers");
+        $em = $this->getDoctrine()->getManager();
+        $video = $em->getRepository("BackendBundle:Video")->findOneBy(array(
+            "id" => $id
+        ));
+        $comments = $em->getRepository("BackendBundle:Comment")->findBy(array(
+            "video" => $video
+                ), array("id" => "DESC"));
+
+        if (count($comments) >= 1) {
+            $data = array(
+                "status" => "success",
+                "code" => 200,
+                "msg" => "Comments, Founded",
+                "data" => $comments
+            );
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "msg" => " Comments or Video Not Exist**"
+            );
+        }
+        return $helpers->json($data);
+    }
 
 }
