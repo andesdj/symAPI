@@ -1,7 +1,7 @@
 /build/
 /phpunit.xml
 /var/*
-!/web/uploads/*
+/web/uploads/*
 !/var/cache
 /var/cache/*
 !var/cache/.gitkeep
