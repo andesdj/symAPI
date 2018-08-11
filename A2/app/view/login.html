@@ -1,0 +1,26 @@
+<div class="col-md-12">
+  <hr>
+<h1>{{titulo}}</h1>
+<hr>
+
+<form  #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-6" >
+    <div class="form-group">
+<label for="email">Email:</label>
+ <input  type="email"  class="form-control" #email="ngForm" ngControl="email" [(ngModel)] ="user.email"  
+     placeholder="Email" required>
+<div class="">
+   <span  class="input-group-addon" *ngIf="!email.valid"> El email es obligatorio</span>
+   <br>
+</div>
+<label for="email">Password:</label>
+<input type="password" class="form-control"  #password="ngForm" ngControl="password" [(ngModel)]="user.password"
+ placeholder="Password" required>
+ <div class="">
+    <span class="input-group-addon" *ngIf="!password.valid">Password es obligatorio</span>
+    <br>
+ </div>
+<br>
+<input type="submit"  class="btn btn-primary" value="Enter">
+    </div>
+</form>
+</div>
