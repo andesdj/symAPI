@@ -29,12 +29,12 @@ var LoginComponent = (function () {
         var _this = this;
         console.log(this.user);
         this._loginService.signup(this.user).subscribe(function (response) {
-            alert(response);
+            console.log(response);
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
                 console.log(_this.errorMessage);
-                alert("Error en la petición");
+                console.log("Error en la petición");
             }
         });
     };

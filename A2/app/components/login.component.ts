@@ -33,13 +33,13 @@ export class LoginComponent  implements OnInit {
     console.log(this.user);
     this._loginService.signup(this.user).subscribe(
       response => {
-        alert(response);
+        console.log (response);
       },
       error    => {
         this.errorMessage = <any>error;
         if(this.errorMessage != null){
           console.log (this.errorMessage);
-          alert("Error en la petición");
+            console.log("Error en la petición");
         }
       }
     );

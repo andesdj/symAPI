@@ -19,6 +19,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 }
 
 header("Access-Control-Origin-Allow-Origin: *");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With,Contenyt-Type, Accept, Access-Control-Request-Method");
 header("Access-Control-Allow-Methods: GET,POST, OPTIONS, PUT, DELETE");
 
