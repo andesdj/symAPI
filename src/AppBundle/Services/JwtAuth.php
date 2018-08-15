@@ -49,7 +49,7 @@ class JwtAuth {
                 return $decoded;
             }
         } else {
-            return array("status" => "error", "data" => "Login Failed, User and Password incorrect!!!");
+            return array("status" => "error", "data" => "Login Failed, User and Password incorrect!!!", "code" => 400);
             die();
         }
     }

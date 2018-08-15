@@ -25,7 +25,7 @@ class DefaultController extends Controller {
             $pass = hash('sha256', $password);
 
             if (count($validate_email) == 0 && $password != null) {
-                if ($getHash == null) {
+                if ($getHash == null || $getHash=="false") {
                     $signup = $jwt_auth->signup($email, $pass);
                 } else {
                     $signup = $jwt_auth->signup($email, $pass, true);
@@ -34,13 +34,15 @@ class DefaultController extends Controller {
             } else {
                 return $helpers->json(array(
                             "status" => "error",
-                            "data" => "API login Not Valid"
+                            "data" => "API login Not Valid",
+                            "code" =>400
                 ));
             }
         } else {
             return $helpers->json(array(
                         "status" => "error",
-                        "data" => "No Login, Please send JSON POST Data"
+                        "data" => "No Login, Please send JSON POST Data",
+                        "code" =>400
             ));
         }
     }
