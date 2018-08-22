@@ -30,10 +30,10 @@ export class LoginComponent  implements OnInit {
       };
 // AL cargar apareceran estos datos de usuario
       console.log("******* U S E R  I D   &   T O K E N **************");
-      let ide = localStorage.getItem('identity');
-      let tk  = localStorage.getItem('token');
-      console.log(ide);
-      console.log(tk);
+       let ide = this._loginService.getIdentity();
+    //  let tk  = this._loginService.getToken();
+  //    console.log(ide);
+  //    console.log(tk);
       console.log ("******************************************************");
   }
 
