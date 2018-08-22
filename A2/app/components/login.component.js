@@ -27,9 +27,9 @@ var LoginComponent = (function () {
         // AL cargar apareceran estos datos de usuario
         console.log("******* U S E R  I D   &   T O K E N **************");
         var ide = this._loginService.getIdentity();
-        //  let tk  = this._loginService.getToken();
-        //    console.log(ide);
-        //    console.log(tk);
+        var tk = this._loginService.getToken();
+        console.log(ide);
+        console.log(tk);
         console.log("******************************************************");
     };
     LoginComponent.prototype.onSubmit = function () {
