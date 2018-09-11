@@ -1,0 +1,19 @@
+<div class="col-md-12">
+  <hr/>
+  <div class="h3">
+    {{titulo}}
+      </div>
+<hr/>
+    <div *ngIf="!identity || identity == null"class="h5">
+      Inicia sesión para accerder a más opciones...
+    </div>
+    <div *ngIf="identity && identity != null" class="">
+      Bienvenido {{identity.name}} {{identity.surname}}
+      <a [routerLink]="['/index']"> Entra a tu canal</a>
+       o
+       <a [routerLink]="['/index']"> Crea un nuevo video</a>
+
+  <hr/>
+    </div>
+
+</div>

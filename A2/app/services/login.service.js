@@ -29,8 +29,6 @@ var LoginService = (function () {
         var identity = JSON.parse(localStorage.getItem('identity'));
         if (identity != "undefined") {
             this.identity = identity;
-            console.log("AAAAAAAA");
-            console.log(this.identity);
         }
         else {
             this.identity = null;

@@ -54,12 +54,12 @@ export class LoginComponent  implements OnInit {
           //  console.log(localStorage.getItem('identity'));
             this.user.gethash="true";
                     this._loginService.signup(this.user).subscribe(  response => {
-                    console.log (response);
+                //    console.log (response);
                         //guardar token en local storage
                         let token=response;
                         this.token=token;
                         if(this.token.length <=0){
-                          alert("error en el servidor Token");
+                      //    alert("error en el servidor Token");
                         }else {
                           if (!this.token.status){
                             localStorage.setItem('token',JSON.stringify(token));

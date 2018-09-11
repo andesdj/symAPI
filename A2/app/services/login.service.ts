@@ -21,25 +21,24 @@ export class LoginService{
   }
 
   getIdentity(){
-    let identity= JSON.parse(localStorage.getItem('identity'));
-    if(identity!="undefined"){
-        this.identity=identity;
-        console.log("AAAAAAAA");
-        console.log(this.identity);
-    } else {
-      this.identity=null;
-    }
-      return this.identity;
+      var identity= JSON.parse(localStorage.getItem('identity'));
+      if(identity!="undefined"){
+          this.identity=identity;
+
+      } else {
+        this.identity=null;
+      }
+        return this.identity;
   }
 
 getToken(){
-  let token= JSON.parse(localStorage.getItem('token'));
-  if(token!="undefined"){
-      this.token=token;
-  } else {
-    this.token=null;
-  }
-    return this.token;
+    var token= JSON.parse(localStorage.getItem('token'));
+    if(token!="undefined"){
+        this.token=token;
+    } else {
+      this.token=null;
+    }
+      return this.token;
 }
 
 
