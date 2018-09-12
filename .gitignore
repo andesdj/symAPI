@@ -1,6 +1,5 @@
 /build/
 /phpunit.xml
-/var/*
 /web/uploads/*
 !/var/cache
 /var/cache/*
