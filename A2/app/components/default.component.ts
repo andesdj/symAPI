@@ -12,8 +12,8 @@ import {LoginService} from '../services/login.service';
 
 // Clase del componente donde irán los datos y funcionalidades
 export class DefaultComponent {
-
 public identity;
+  public token;
 public titulo = "Portada";
 constructor(private _loginService: LoginService){}
 

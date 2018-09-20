@@ -1,5 +1,6 @@
 // Importar el núcleo de Angular
 import {Component, OnInit} from '@angular/core';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
 import {LoginService} from '../services/login.service';
 
 // Decorador component, indicamos en que etiqueta se va a cargar la
@@ -16,12 +17,28 @@ export class LoginComponent  implements OnInit {
   public identity;
   public token;
   constructor(
-        private _loginService: LoginService
+        private _loginService: LoginService,
+        private _route: ActivatedRoute,
+        private _router: Router
   ){
 
   }
 
   ngOnInit(){
+
+this._route.params.subscribe(params=>{
+  let logout = +params["id"];
+  if (logout==1){
+    localStorage.removeItem('identity');
+    localStorage.removeItem('token');
+    this.identity=null;
+    this.token=null;
+
+    window.location.href="/login";
+        // this._router.navigate(["/index"]);
+  }
+});
+
 //    alert (this._loginService.signup())
       this.user = {
         "email": "",
@@ -35,6 +52,11 @@ export class LoginComponent  implements OnInit {
       console.log(ide);
       console.log(tk);
       console.log ("******************************************************");
+      if(ide != null && ide.sub){
+        this._router.navigate(['/index'])
+      }
+
+
   }
 
   onSubmit(){
@@ -69,7 +91,9 @@ export class LoginComponent  implements OnInit {
                             console.log(ide);
                             console.log(tk);
                             console.log ("******************************************************");
+
                             //REDIRECTION
+                            window.location.href="/";
                           }
                         }
                       },

@@ -2,11 +2,20 @@
   <hr>
 <h1>{{titulo}}</h1>
 <hr>
+<div class="identity-data" *ngIf="identity">
+  <div class="user-identity alert alert-success" *ngIf="identity.email">
+      Hola  {{identity.name}}
+  </div>
+  <div class="user-identity alert alert-danger" *ngIf="identity.data">
+       {{identity.data}}
+  </div>
+
+  </div>
 
 <form  #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-6" >
     <div class="form-group">
 <label for="email">Email:</label>
- <input  type="email"  class="form-control" #email="ngForm" ngControl="email" [(ngModel)] ="user.email"  
+ <input  type="email"  class="form-control" #email="ngForm" ngControl="email" [(ngModel)] ="user.email"
      placeholder="Email" required>
 <div class="">
    <span  class="input-group-addon" *ngIf="!email.valid"> El email es obligatorio</span>
