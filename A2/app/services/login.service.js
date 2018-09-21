@@ -45,6 +45,13 @@ var LoginService = (function () {
         }
         return this.token;
     };
+    LoginService.prototype.register = function (user_to_register) {
+        var json = JSON.stringify(user_to_register);
+        var params = "json=" + json;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/user/new", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     LoginService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

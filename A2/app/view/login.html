@@ -2,14 +2,13 @@
   <hr>
 <h1>{{titulo}}</h1>
 <hr>
-<div class="identity-data" *ngIf="identity">
+<div class=" h3 identity-data" *ngIf="identity">
   <div class="user-identity alert alert-success" *ngIf="identity.email">
-      Hola  {{identity.name}}
+      Hola  {{identity.name}} !! Como estas
   </div>
   <div class="user-identity alert alert-danger" *ngIf="identity.data">
        {{identity.data}}
   </div>
-
   </div>
 
 <form  #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-6" >
