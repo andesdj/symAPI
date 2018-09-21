@@ -26,6 +26,7 @@ var RegisterComponent = (function () {
     };
     RegisterComponent.prototype.onSubmit = function () {
         var _this = this;
+        console.log(this.user);
         this._loginService.register(this.user).subscribe(function (response) {
             _this.status = response.status;
             console.log(_this.status);
@@ -39,7 +40,6 @@ var RegisterComponent = (function () {
                 console.log("Error en el registro de usuario");
             }
         });
-        console.log(this.user);
     };
     RegisterComponent = __decorate([
         core_1.Component({

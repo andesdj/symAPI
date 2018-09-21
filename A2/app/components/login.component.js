@@ -66,7 +66,6 @@ var LoginComponent = (function () {
                     //  console.log(localStorage.getItem('identity'));
                     _this.user.gethash = "true";
                     _this._loginService.signup(_this.user).subscribe(function (response) {
-                        //    console.log (response);
                         //guardar token en local storage
                         var token = response;
                         _this.token = token;

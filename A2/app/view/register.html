@@ -18,19 +18,16 @@
   <input type="text" #name="ngForm" class="form-control" ngControl="name" [(ngModel)]="user.name" required/>
   <span *ngIf="!name.valid && name.touched">ANDES, el nombre debe ser olbigatorio</span>
 </p>
-
 <p>
   <label>Apellidos: </label>
   <input type="text" #surname="ngForm" class="form-control" ngControl="surname" [(ngModel)]="user.surname" required/>
   <span *ngIf="!surname.valid && surname.touched">ANDES, el Apellido debe ser olbigatorio</span>
 </p>
-
 <p>
   <label>Email: </label>
   <input type="email" #email="ngForm" class="form-control" ngControl="email" [(ngModel)]="user.email" required/>
   <span *ngIf="!email.valid && email.touched">ANDES, el Email debe ser olbigatorio</span>
 </p>
-
 <p>
   <label>Password: </label>
   <input type="password" #password="ngForm" class="form-control" ngControl="password" [(ngModel)]="user.password" required/>

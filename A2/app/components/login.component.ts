@@ -76,12 +76,11 @@ this._route.params.subscribe(params=>{
           //  console.log(localStorage.getItem('identity'));
             this.user.gethash="true";
                     this._loginService.signup(this.user).subscribe(  response => {
-                //    console.log (response);
+
                         //guardar token en local storage
                         let token=response;
                         this.token=token;
                         if(this.token.length <=0){
-                      //    alert("error en el servidor Token");
                         }else {
                           if (!this.token.status){
                             localStorage.setItem('token',JSON.stringify(token));
@@ -91,7 +90,6 @@ this._route.params.subscribe(params=>{
                             console.log(ide);
                             console.log(tk);
                             console.log ("******************************************************");
-
                             //REDIRECTION
                             window.location.href="/";
                           }
