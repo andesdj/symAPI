@@ -12,14 +12,14 @@ import {User} from '../model/user';
     providers: [LoginService]
 })
 // Clase del componente donde irán los datos y funcionalidades
-export class RegisterComponent implements onInit {
+export class RegisterComponent implements OnInit {
     public titulo:string ="Registro";
     public user:User;
     public errorMessage;
     public status;
 
     constructor(
-      private _LoginService: LoginService,
+      private _loginService: LoginService,
       private _route: ActivatedRoute,
       private _router: Router
     ){}

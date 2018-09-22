@@ -104,7 +104,7 @@ class UserController extends Controller {
                     $user->setRoles($role);
                     $user->setName($name);
                     $user->setSurname($surname);
-                    if ($password != null) {
+                    if ($password != null &&  !empty($password) ) {
                         //Cifrar password
                         $pass = hash('sha256', $password);
                         $user->setPassword($pass);
