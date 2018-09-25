@@ -2,6 +2,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
 import {LoginService} from '../services/login.service';
+import {UploadService} from '../services/upload.service';
 import {User} from '../model/user';
 
 // Decorador component, indicamos en que etiqueta se va a cargar la
@@ -9,7 +10,7 @@ import {User} from '../model/user';
     selector: 'user-edit',
     templateUrl: 'app/view/user.edit.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [LoginService]
+    providers: [LoginService, UploadService]
 })
 // Clase del componente donde irán los datos y funcionalidades
 export class UserEditComponent implements OnInit {
@@ -18,10 +19,11 @@ export class UserEditComponent implements OnInit {
     public errorMessage;
     public status;
     public identity;
-    public newPdw;
+    public newPwd;
 
     constructor(
       private _loginService: LoginService,
+      private _uploadService: UploadService,
       private _route: ActivatedRoute,
       private _router: Router
     ){}
@@ -37,7 +39,7 @@ export class UserEditComponent implements OnInit {
       }
     onSubmit(){
         console.log(this.user);
-        this.newPdw =this.user.password;
+        this.newPwd =this.user.password;
         if(this.user.password == this.identity.password){
           this.user.password="";
         }
@@ -59,13 +61,30 @@ export class UserEditComponent implements OnInit {
                       this.errorMessage = <any>error;
                       if(this.errorMessage != null){
                             console.log (this.errorMessage);
-                            console.log("Error en el registro de usuario");
+                            // console.log("Error en el registro de usuario");
                       }
                   }
             );
-
-
-
     }
+
+public filesToUpload: Array<File>;
+public resultUpload;
+  fileChangeEvent(fileInput: any){
+    console.log("event");
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    let token = this._loginService.getToken();
+    let url ="http://localhost/symAPI/web/app_dev.php/user/upload-image-user";
+    this._uploadService.makeFileRequest(token,url, ['image'], this.filesToUpload).then(
+      (result)=>{
+          this.resultUpload= result;
+          console.log(this.resultUpload);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    );
+  }
+
+
 
  }

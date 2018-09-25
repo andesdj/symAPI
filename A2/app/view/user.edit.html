@@ -37,7 +37,44 @@
 <p>
   <input type="submit" value="{{titulo}}" class="btn btn-success">
 </p>
-
 </form>
+
+<div class="">
+  <h4>Profile Image</h4>
+  <p>
+    <input type="file" placeholder ="upload your Image.." name="" value="" (change)="fileChangeEvent($event)">
+  </p>
+  <div class="progress">
+    <div id="upload-progress-bar" class="progress-bar progress-bar-success" role="progress-bar"
+    aria-valuenow="0"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    style="width: 1%;"
+    ></div>
+    <div class="">
+      <p id="status"></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>

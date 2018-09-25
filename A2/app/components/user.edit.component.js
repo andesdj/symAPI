@@ -12,11 +12,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require("@angular/router");
 var login_service_1 = require('../services/login.service');
+var upload_service_1 = require('../services/upload.service');
 var user_1 = require('../model/user');
 // Decorador component, indicamos en que etiqueta se va a cargar la
 var UserEditComponent = (function () {
-    function UserEditComponent(_loginService, _route, _router) {
+    function UserEditComponent(_loginService, _uploadService, _route, _router) {
         this._loginService = _loginService;
+        this._uploadService = _uploadService;
         this._route = _route;
         this._router = _router;
         this.titulo = "Actualiza mis datos";
@@ -34,7 +36,7 @@ var UserEditComponent = (function () {
     UserEditComponent.prototype.onSubmit = function () {
         var _this = this;
         console.log(this.user);
-        this.newPdw = this.user.password;
+        this.newPwd = this.user.password;
         if (this.user.password == this.identity.password) {
             this.user.password = "";
         }
@@ -54,8 +56,20 @@ var UserEditComponent = (function () {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
                 console.log(_this.errorMessage);
-                console.log("Error en el registro de usuario");
             }
+        });
+    };
+    UserEditComponent.prototype.fileChangeEvent = function (fileInput) {
+        var _this = this;
+        console.log("event");
+        this.filesToUpload = fileInput.target.files;
+        var token = this._loginService.getToken();
+        var url = "http://localhost/symAPI/web/app_dev.php/user/upload-image-user";
+        this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            console.log(_this.resultUpload);
+        }, function (error) {
+            console.log(error);
         });
     };
     UserEditComponent = __decorate([
@@ -63,9 +77,9 @@ var UserEditComponent = (function () {
             selector: 'user-edit',
             templateUrl: 'app/view/user.edit.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [login_service_1.LoginService, upload_service_1.UploadService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [login_service_1.LoginService, upload_service_1.UploadService, router_1.ActivatedRoute, router_1.Router])
     ], UserEditComponent);
     return UserEditComponent;
 }());
