@@ -8,7 +8,8 @@ export class UploadService{
   // public progressBar;
 
   constructor ( private _http: Http){}
-    makeFileRequest(token, url: string, params: Array <string>, files: Array<File>){
+
+    makeFileRequest(tok, url: string, params: Array <string>, files: Array<File>){
         return new Promise ((resolve, reject) =>{
           var formData: any = new FormData();
           var xhr= new XMLHttpRequest();
@@ -16,7 +17,8 @@ export class UploadService{
           for(var i=0; i<files.length;i++){
             formData.append(name_file_input, files[i], files[i].name);
             }
-            formData.append("authorization",token);
+                formData.append("authorization",tok);
+
             xhr.onreadystatechange= function(){
               if (xhr.readyState==4){
                 if(xhr.status==200){
@@ -27,9 +29,7 @@ export class UploadService{
                 }
               }
             }
-
-
-            xhr.upload.addEventListener("progress", function(event:any){
+              xhr.upload.addEventListener("progress", function(event:any){
               document.getElementById("upload-progress-bar").setAttribute("value", "0");
               document.getElementById("upload-progress-bar").style.width="0%";
                 var percent= (event.loaded/event.total)*100;
@@ -56,14 +56,13 @@ export class UploadService{
               },false);
                 // SEND FORM by POST
               xhr.open("POST", url, true);
-              xhr.send(FormData);
 
-        }
+              xhr.send(formData);
+              console.log(formData);
+              console.log(tok);
 
-
-        );
+        });
     }
-
 
 
 

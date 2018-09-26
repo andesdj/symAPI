@@ -64,7 +64,7 @@ var UserEditComponent = (function () {
         console.log("event");
         this.filesToUpload = fileInput.target.files;
         var token = this._loginService.getToken();
-        var url = "http://localhost/symAPI/web/app_dev.php/user/upload-image-user";
+        var url = "http://localhost/SymAPI/web/app_dev.php/user/uploadImageUser";
         this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
             _this.resultUpload = result;
             console.log(_this.resultUpload);

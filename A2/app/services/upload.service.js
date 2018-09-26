@@ -16,7 +16,7 @@ var UploadService = (function () {
     function UploadService(_http) {
         this._http = _http;
     }
-    UploadService.prototype.makeFileRequest = function (token, url, params, files) {
+    UploadService.prototype.makeFileRequest = function (tok, url, params, files) {
         return new Promise(function (resolve, reject) {
             var formData = new FormData();
             var xhr = new XMLHttpRequest();
@@ -24,7 +24,7 @@ var UploadService = (function () {
             for (var i = 0; i < files.length; i++) {
                 formData.append(name_file_input, files[i], files[i].name);
             }
-            formData.append("authorization", token);
+            formData.append("authorization", tok);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status == 200) {
@@ -59,7 +59,9 @@ var UploadService = (function () {
             }, false);
             // SEND FORM by POST
             xhr.open("POST", url, true);
-            xhr.send(FormData);
+            xhr.send(formData);
+            console.log(formData);
+            console.log(tok);
         });
     };
     UploadService = __decorate([

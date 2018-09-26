@@ -20,6 +20,7 @@ constructor(private _loginService: LoginService){}
 ngOnInit(){
     this.identity = this._loginService.getIdentity();
     this.token= this._loginService.getToken();
+    console.log(this.identity);
 }
 
 

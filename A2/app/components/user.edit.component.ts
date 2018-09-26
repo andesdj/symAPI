@@ -73,7 +73,7 @@ public resultUpload;
     console.log("event");
     this.filesToUpload = <Array<File>>fileInput.target.files;
     let token = this._loginService.getToken();
-    let url ="http://localhost/symAPI/web/app_dev.php/user/upload-image-user";
+    let url ="http://localhost/SymAPI/web/app_dev.php/user/uploadImageUser";
     this._uploadService.makeFileRequest(token,url, ['image'], this.filesToUpload).then(
       (result)=>{
           this.resultUpload= result;

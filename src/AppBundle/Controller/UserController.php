@@ -88,7 +88,7 @@ class UserController extends Controller {
             );
             if ($json != null) {
                 $createdAt = new \Datetime("now");
-                $image = "image.jpg";
+               $image = "image.jpg";
                 $role = "user";
                 $email = (isset($params->email)) ? $params->email : null;
                 $name = (isset($params->name)) ? $params->name : null;
