@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-lg-6">
   <hr>
 <h1>{{titulo}}</h1>
 <hr>
@@ -32,49 +32,36 @@
   <input type="password" #password="ngForm" class="form-control" ngControl="password" [(ngModel)]="user.password" required/>
   <span *ngIf="!password.valid && password.touched"> <strong> {{user.name}}! </strong>., el password debe ser olbigatorio</span>
 </p>
-
-
 <p>
   <input type="submit" value="{{titulo}}" class="btn btn-success">
 </p>
 </form>
 
-<div class="">
-  <h4>Profile Image</h4>
-  <p>
-    <input type="file" placeholder ="upload your Image.." name="" value="" (change)="fileChangeEvent($event)">
-  </p>
-  <div class="progress">
-    <div id="upload-progress-bar" class="progress-bar progress-bar-success" role="progress-bar"
-    aria-valuenow="0"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    style="width: 1%;"
-    ></div>
-    <div class="">
-      <p id="status"></p>
-
+</div>
+<div class="col-lg-6">
+    <h4>Profile Image</h4>
+    <p>
+      <input type="file" placeholder ="upload your Image.." name="" value="" (change)="fileChangeEvent($event)">
+    </p>
+    <div class="progress">
+      <div id="upload-progress-bar" class="progress-bar progress-bar-success" role="progress-bar"
+      aria-valuenow="0"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      style="width: 1%;"
+      >
     </div>
-
-  </div>
-
+      <div class="">
+        <p id="status"></p>
+      </div>
+    </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="h3">
+   {{user.name}}
+</div>
+<div class="col-md-4">
+    <div class="thumbnail">
+      <img src="http://localhost/SymAPI/web/uploads/users/{{identity.image}}" alt="..." class="img-circle" >
+</div>
 </div>
